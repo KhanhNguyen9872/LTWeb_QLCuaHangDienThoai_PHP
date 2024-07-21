@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 21, 2024 at 03:23 PM
+-- Generation Time: Jul 21, 2024 at 04:22 PM
 -- Server version: 10.5.22-MariaDB
 -- PHP Version: 8.0.30
 
@@ -61,6 +61,29 @@ CREATE TABLE `customer` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `imp`
+--
+
+CREATE TABLE `imp` (
+  `id` int(11) NOT NULL,
+  `phone_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL DEFAULT 1,
+  `price` int(25) NOT NULL DEFAULT 0,
+  `dateimport` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `imp`
+--
+
+INSERT INTO `imp` (`id`, `phone_id`, `quantity`, `price`, `dateimport`) VALUES
+(1, 6, 4, 2000000, '2024-07-21'),
+(2, 5, 3, 1000000, '2024-07-21'),
+(3, 9, 12, 17500000, '2024-07-21');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `order`
 --
 
@@ -95,11 +118,11 @@ INSERT INTO `phone` (`id`, `name`, `model`, `producer_id`, `phonetype_id`, `quan
 (2, 'Pixel 8A', 'akita', 6, 1, 13, 10500000.00, 'OIP (1).jpg'),
 (3, 'Pixel Fold', 'felix', 6, 1, 21, 23999000.00, 'V2x3sS1Yx6.jpg'),
 (4, 'Xiaomi Pad 6', '23043RP34C', 5, 2, 4, 8500000.00, 'NjBPEgFkve.jpg'),
-(5, 'Realme C3', 'RMX2020', 4, 1, 6, 2000000.00, 'Realme-C3-64GB-3GB-Face-Unlock-6-5-Dual-SIM-GSM-Unlocked-US-4G-LTE-RMX2020_b18f926a-c353-4ebd-a0bd-282ce8b59b9a.6175e01e2c92cc792cde2ed6a712af3d.webp'),
-(6, 'Xiaomi Mi 9', 'cepheus', 5, 1, 6, 2900000.00, 'xiaomi-mi-9-1-600x600.jpg'),
+(5, 'Realme C3', 'RMX2020', 4, 1, 9, 2000000.00, 'Realme-C3-64GB-3GB-Face-Unlock-6-5-Dual-SIM-GSM-Unlocked-US-4G-LTE-RMX2020_b18f926a-c353-4ebd-a0bd-282ce8b59b9a.6175e01e2c92cc792cde2ed6a712af3d.webp'),
+(6, 'Xiaomi Mi 9', 'cepheus', 5, 1, 10, 2900000.00, 'xiaomi-mi-9-1-600x600.jpg'),
 (7, 'iPhone 15 Pro Max', 'A3092', 8, 1, 8, 30999000.00, '15-pro-max-tu-nhien-2.webp'),
 (8, 'Galaxy Tab A9+ 5G', 'SM-X216B', 1, 2, 7, 6290000.00, 'samsung-galaxy-a9-plus-den-thumb-600x600.jpg'),
-(9, 'iPhone 15', 'A3090', 8, 1, 5, 22000000.00, 'image_2024-07-16_154044921.png'),
+(9, 'iPhone 15', 'A3090', 8, 1, 17, 22000000.00, 'image_2024-07-16_154044921.png'),
 (10, 'iPhone 13 Pro Max', 'A2643', 8, 1, 8, 28490000.00, 'image_2024-07-16_154818521.png'),
 (11, 'Oppo Reno8 Pro 5G', 'CPH2357', 2, 1, 20, 18990000.00, 'image_2024-07-16_155007785.png'),
 (12, 'Xiaomi Redmi Note 11', '2201117TG', 5, 1, 32, 4290000.00, 'image_2024-07-16_155115276.png'),
@@ -237,6 +260,13 @@ ALTER TABLE `customer`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `imp`
+--
+ALTER TABLE `imp`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `phone_id` (`phone_id`);
+
+--
 -- Indexes for table `order`
 --
 ALTER TABLE `order`
@@ -291,6 +321,12 @@ ALTER TABLE `customer`
   MODIFY `id` int(20) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `imp`
+--
+ALTER TABLE `imp`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `order`
 --
 ALTER TABLE `order`
@@ -329,6 +365,12 @@ ALTER TABLE `user`
 --
 ALTER TABLE `account`
   ADD CONSTRAINT `account_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+
+--
+-- Constraints for table `imp`
+--
+ALTER TABLE `imp`
+  ADD CONSTRAINT `imp_ibfk_1` FOREIGN KEY (`phone_id`) REFERENCES `phone` (`id`);
 
 --
 -- Constraints for table `order`

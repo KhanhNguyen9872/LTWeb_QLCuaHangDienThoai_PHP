@@ -101,15 +101,29 @@ $activePage = isset($_GET['page']) ? $_GET['page'] : 'Main';
             <div class="tab">
                 <!-- <button class="tablinks <?php echo $activePage === 'sell' ? 'active' : ''; ?>" onclick="location.href='?page=sell'">Bán hàng</button> -->
                 <button class="tablinks <?php echo $activePage === 'phone' ? 'active' : ''; ?>" onclick="location.href='/admin/?page=phone&list=1'">Quản lý điện thoại</button>
-                <button class="tablinks <?php echo $activePage === 'producer' ? 'active' : ''; ?>" onclick="location.href='/admin/?page=producer'">Quản lý nhà sản xuất</button>
+                <button class="tablinks <?php echo $activePage === 'producer' ? 'active' : ''; ?>" onclick="location.href='/admin/?page=producer'">Nhà sản xuất</button>
                 <!-- <button class="tablinks <?php echo $activePage === 'customer' ? 'active' : ''; ?>" onclick="location.href='?page=customer'">Quản lý khách hàng</button> -->
                 <button class="tablinks <?php echo $activePage === 'type' ? 'active' : ''; ?>" onclick="location.href='/admin/?page=type'">Quản lý loại</button>
+                <button class="tablinks <?php echo $activePage === 'imp' ? 'active' : ''; ?>" onclick="location.href='/admin/?page=imp'">Nhập kho</button>
                 <?php echo $_SESSION['admin'] ? "<button class=\"tablinks " . ($activePage === 'staff' ? 'active' : '') . "\" onclick=\"location.href='/admin/?page=staff'\">Quản lý nhân viên</button>\n" : '' ?>
                 <?php echo $_SESSION['admin'] ? "<button class=\"tablinks " . ($activePage === 'account' ? 'active' : '') . "\" onclick=\"location.href='/admin/?page=account'\">Quản lý tài khoản</button>\n" : '' ?>
                 <!-- <button class="tablinks <?php echo $activePage === 'order' ? 'active' : ''; ?>" onclick="location.href='?page=order'">Quản lý đơn hàng</button> -->
-                
             </div>
 
+            <div id="contentArea" class="tabcontent" style="display: <?php echo $activePage === 'editImp' ? 'block' : 'none'; ?>">
+                <?php if ($activePage === 'editImp') { 
+                    if (!is_guest()) {
+                        include 'pages/imp/edit.php';
+                    } else {
+                        redirect("/");
+                    }
+                } ?>
+            </div>
+            <div id="contentArea" class="tabcontent" style="display: <?php echo $activePage === 'imp' ? 'block' : 'none'; ?>">
+                <?php if ($activePage === 'imp') { 
+                    include 'pages/imp/index.php'; 
+                } ?>
+            </div>
             <div id="contentArea" class="tabcontent" style="display: <?php echo $activePage === 'editType' ? 'block' : 'none'; ?>">
                 <?php if ($activePage === 'editType') { 
                     if (!is_guest()) {
