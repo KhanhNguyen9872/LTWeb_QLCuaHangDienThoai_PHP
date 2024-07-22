@@ -217,7 +217,7 @@ $activePage = isset($_GET['page']) ? $_GET['page'] : 'Main';
 
             <div id="contentArea" class="tabcontent" style="display: <?php echo $activePage === 'Main' ? 'block' : 'none'; ?>">
                 <?php if ($activePage === 'Main') { 
-                    echo "<p>Xin chào, <b>" . htmlspecialchars($_SESSION["username"]) . "</b>!</p>";
+                    echo "<p>Xin chào, <b>" . htmlspecialchars($_SESSION["username"]) . " - " . $_SESSION["fullname"] . "</b>!</p>";
                     echo "<p>Chúc bạn một ngày tốt lành!</p>";
                 } ?>
             </div>

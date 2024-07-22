@@ -36,17 +36,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     if (mysqli_stmt_fetch($stmt)) {
                         if (password_verify($password, $hashed_password)) {
                             session_start();
-
+                            
                             $_SESSION["loggedin"] = true;
                             $_SESSION["username"] = $username;
                             $_SESSION["admin"] = false;
                             $_SESSION["guest"] = false;
                             
-                            $sql = "select type from user where id = $user_id";
+                            $sql = "select name, type from user where id = $user_id";
                             $result = $conn->query($sql);
                             if ($result->num_rows > 0) {
-                                $type = $result->fetch_assoc()["type"];
+                                $data = $result->fetch_assoc();
+                                $type = $data["type"];
                                 
+                                $_SESSION["fullname"] = $data["name"];
                                 if ($type == "-1") {
                                     $_SESSION["admin"] = true;
                                 }
@@ -56,7 +58,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             } else {
                                 $_SESSION["admin"] = false;
                                 $_SESSION["guest"] = true;
-                            }  
+                                $_SESSION["fullname"] = "";
+                            }
 
                             header("location: /admin");
                         } else {

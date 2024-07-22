@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 21, 2024 at 04:22 PM
+-- Generation Time: Jul 22, 2024 at 02:45 PM
 -- Server version: 10.5.22-MariaDB
 -- PHP Version: 8.0.30
 
@@ -47,20 +47,6 @@ INSERT INTO `account` (`id`, `username`, `password`, `email`, `user_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `customer`
---
-
-CREATE TABLE `customer` (
-  `id` int(20) NOT NULL,
-  `name` mediumtext NOT NULL,
-  `address` mediumtext DEFAULT NULL,
-  `email` mediumtext DEFAULT NULL,
-  `phone` varchar(10) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `imp`
 --
 
@@ -80,17 +66,6 @@ INSERT INTO `imp` (`id`, `phone_id`, `quantity`, `price`, `dateimport`) VALUES
 (1, 6, 4, 2000000, '2024-07-21'),
 (2, 5, 3, 1000000, '2024-07-21'),
 (3, 9, 12, 17500000, '2024-07-21');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `order`
---
-
-CREATE TABLE `order` (
-  `id` int(20) NOT NULL,
-  `customerID` int(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -238,8 +213,7 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id`, `name`, `gender`, `email`, `phone`, `type`) VALUES
 (1, 'Nguyen Van Khanh', 0, 'khanh@localhost.com', '0123456788', -1),
 (2, 'Le Lam Chien Thang', 0, 'thang@localhost.com', '0120120121', 1),
-(3, 'Vu Duc Thinh', 0, 'thinh@localhost.com', '0989898989', 0),
-(4, 'asda', 1, 'ak3123124@gmail.com', '0937927513', 1);
+(3, 'Vu Duc Thinh', 0, 'thinh@localhost.com', '0989898989', 0);
 
 --
 -- Indexes for dumped tables
@@ -251,13 +225,8 @@ INSERT INTO `user` (`id`, `name`, `gender`, `email`, `phone`, `type`) VALUES
 ALTER TABLE `account`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `username` (`username`),
-  ADD UNIQUE KEY `email` (`email`);
-
---
--- Indexes for table `customer`
---
-ALTER TABLE `customer`
-  ADD PRIMARY KEY (`id`);
+  ADD UNIQUE KEY `email` (`email`),
+  ADD KEY `account_ibfk_1` (`user_id`);
 
 --
 -- Indexes for table `imp`
@@ -265,13 +234,6 @@ ALTER TABLE `customer`
 ALTER TABLE `imp`
   ADD PRIMARY KEY (`id`),
   ADD KEY `phone_id` (`phone_id`);
-
---
--- Indexes for table `order`
---
-ALTER TABLE `order`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `customerID` (`customerID`);
 
 --
 -- Indexes for table `phone`
@@ -315,22 +277,10 @@ ALTER TABLE `account`
   MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `customer`
---
-ALTER TABLE `customer`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `imp`
 --
 ALTER TABLE `imp`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `order`
---
-ALTER TABLE `order`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `phone`
@@ -354,7 +304,7 @@ ALTER TABLE `producer`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
@@ -371,12 +321,6 @@ ALTER TABLE `account`
 --
 ALTER TABLE `imp`
   ADD CONSTRAINT `imp_ibfk_1` FOREIGN KEY (`phone_id`) REFERENCES `phone` (`id`);
-
---
--- Constraints for table `order`
---
-ALTER TABLE `order`
-  ADD CONSTRAINT `order_ibfk_1` FOREIGN KEY (`customerID`) REFERENCES `customer` (`id`);
 
 --
 -- Constraints for table `phone`
